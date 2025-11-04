@@ -1,0 +1,102 @@
+.h1 {
+  text-align: center;
+  margin: 40px 0 20px;
+  font-size: 2.5rem;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}
+
+.categoryimgs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 10px;
+}
+
+.categoryimgs a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+}
+
+.categoryimgs a:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.categoryimgs img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  transition: transform 0.3s ease;
+}
+
+.categoryimgs a:hover img {
+  transform: scale(1.10);
+  padding: 8%;
+}
+
+.categoryimgs h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #555;
+}
+
+/* View More Button */
+.view-more-btn {
+  display: none;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.view-more-btn button {
+  background-color: #ff6347;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-more-btn button:hover {
+  background-color: #e5533d;
+}
+
+/* Tablet View */
+@media (max-width: 768px) {
+  .categoryimgs img {
+    width: 140px;
+    height: 140px;
+  }
+
+  .categoryimgs h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 480px) {
+  .categoryimgs img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .categoryimgs h3 {
+    font-size: 0.9rem;
+  }
+
+  /* Show View More button only in mobile */
+  .view-more-btn {
+    display: block;
+  }
+}

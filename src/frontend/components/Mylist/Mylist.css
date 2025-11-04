@@ -1,0 +1,69 @@
+.mylist-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.mylist-container h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.mylist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.mylist-card {
+  background: #fff;
+  border-radius: 5%;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s ease;
+  padding: 15px;
+}
+
+.mylist-card:hover {
+  transform: translateY(-5px);
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mylist-card-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 90%;
+}
+
+.mylist-card-title {
+  margin-top: 12px;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Remove button */
+.remove-btn {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.remove-btn:hover {
+  background: #e60000;
+  transform: scale(1.05);
+}

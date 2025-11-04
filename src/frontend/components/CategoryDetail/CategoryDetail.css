@@ -1,0 +1,108 @@
+/* === Container Styles === */
+.category-detail {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* === Heading === */
+.categoryheading {
+  font-size: 3rem;
+  margin-bottom: 50px;
+  font-weight: 800;
+  color: #2c3e50;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+}
+
+/* === Meal Card Styles === */
+.meal-slide {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.meal-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.meal-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+}
+
+.meal-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.meal-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #34495e;
+  margin: 0;
+  line-height: 1.4;
+  min-height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* === AOS Animations === */
+.meal-slide[data-aos] {
+  will-change: transform, opacity;
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 1024px) {
+  .meal-card {
+    width: 200px;
+  }
+  .meal-card img {
+    height: 140px;
+  }
+}
+
+@media (max-width: 768px) {
+  .meal-card {
+    width: 180px;
+    padding: 16px;
+  }
+
+  .meal-card img {
+    height: 130px;
+  }
+
+  .categoryheading {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .meal-card {
+    width: 100%;
+    padding: 14px;
+  }
+
+  .meal-card img {
+    height: 120px;
+  }
+
+  .categoryheading {
+    font-size: 1.8rem;
+  }
+}

@@ -1,0 +1,62 @@
+.share-container {
+  position: relative;
+  display: inline-block;
+}
+
+.share-btn {
+  background-color:gray;
+  border: none;
+  border-radius: 30px;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.share-btn:hover {
+  background-color: #e04e4e;
+}
+
+.share-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 20;
+  animation: fadeIn 0.3s ease;
+}
+
+.share-popup a {
+  text-decoration: none;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.share-popup a:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 18px;
+}
+
+.whatsapp { color: #25D366; }
+.telegram { color: #0088cc; }
+.twitter { color: #1DA1F2; }
+.facebook { color: #1877F2; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

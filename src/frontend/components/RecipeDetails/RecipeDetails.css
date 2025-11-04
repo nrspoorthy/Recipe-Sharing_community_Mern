@@ -1,0 +1,252 @@
+/* Container */
+.recipe-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+  color: #222;
+  box-sizing: border-box;
+}
+
+/* Title */
+.recipe-title {
+  text-align: center;
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.recipe-sub {
+  text-align: center;
+  font-size: 1rem;
+  color: #777;
+  margin-bottom: 40px;
+}
+
+/* Main layout */
+.recipe-main {
+  display: flex;
+  align-items: stretch;
+  gap: 40px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+/* Image wrapper */
+.recipe-img {
+  position: relative; /* required for fav-btn */
+  flex: 1;
+  max-width: 320px;
+  min-width: 280px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipe-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* circle image */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.recipe-img img:hover {
+  transform: scale(1.03);
+}
+
+/* Floating Favorite Button */
+.fav-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: white;   /* light pink background */
+  border: none;          /* remove black border */
+  outline: none;         /* remove click outline */
+  border-radius: 50%;    /* make it round */
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.fav-btn:hover {
+  transform: scale(1.1);
+  border:none;
+}
+
+.heart {
+  font-size: 20px;
+  color: #ff4d6d; 
+  border:none;  /* pink heart */
+}
+
+.heart.filled {
+  color: #ff1a4d; 
+  border:none;  /* darker red when filled */
+}
+
+
+/* Ingredients */
+.ingredients-box {
+  flex: 2;
+  max-height: 520px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 30px 40px;
+  overflow-y: auto;
+}
+
+.ingredients-box h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.ingredients-box ul {
+  columns: 2;
+  column-gap: 30px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ingredients-box li {
+  break-inside: avoid;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1rem;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.ingredients-box li:last-child {
+  border-bottom: none;
+}
+
+.measure {
+  font-weight: 600;
+  color: #333;
+  margin-right: 10px;
+}
+
+.ingredient {
+  color: #666;
+  text-align: right;
+}
+
+/* Instructions */
+.instructions-box {
+  background: #fafafa;
+  padding: 30px 40px;
+  border-radius: 16px;
+  line-height: 1.7;
+  font-size: 1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.instructions-box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-top: 100px;
+}
+/* Wishlist Button */
+.wishlist-btn {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.05);
+  background-color: #218838;
+}
+
+.wishlist-btn.added {
+  background-color: #ff9800;
+}
+
+.wishlist-btn.added:hover {
+  background-color: #e68900;
+}
+
+/* Success Message */
+.wishlist-message {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -40%);
+  }
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+  .recipe-main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .recipe-img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .ingredients-box {
+    max-height: none;
+    height: auto;
+    overflow-y: visible;
+    width: 100%;
+  }
+
+  .ingredients-box ul {
+    columns: 1;
+  }
+}

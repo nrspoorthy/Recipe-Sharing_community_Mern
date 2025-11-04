@@ -1,0 +1,218 @@
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 80px;
+  margin: 0;
+  background: #c8c09d;
+  position: relative;
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.header-left {
+  flex: 1;
+  min-width: 280px;
+  max-width: 670px;
+  position: relative;
+  z-index: 5;
+  margin-left: 2%;
+}
+
+.title-1 {
+  font-family: 'Lillybelle', cursive;
+  font-size: 90px;
+  color: #fff;
+  margin-bottom: 20px;
+  line-height: 1.1;
+  word-wrap: break-word;
+}
+
+.subtitle {
+  color: #f6f6f6;
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.buy-btn {
+  background: #e87c86;
+  border: none;
+  padding: 14px 34px;
+  font-size: 18px;
+  border-radius: 30px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.buy-btn:hover {
+  background: #d15b64;
+}
+
+.header-right {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.main-img {
+  width: 580px;
+  max-width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-1 {
+  position: absolute;
+  top: -100px;
+  right: -90px;
+  width: 260px;
+  z-index: 2;
+  opacity: 0.9;
+}
+
+.icon-2 {
+  position: absolute;
+  bottom: 0;
+  left: -100px;
+  width: 220px;
+  z-index: 1;
+}
+
+/* Brush-stroke bottom image */
+.header-section > img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* =======================================================
+   🌐 Responsive Design for All Devices
+======================================================= */
+
+/*  💻 Large Screens (1200px and below) */
+@media (max-width: 1200px) {
+  .header-section {
+    padding: 50px 60px;
+  }
+
+  .title-1 {
+    font-size: 75px;
+  }
+
+  .main-img {
+    width: 500px;
+  }
+
+  .icon-1 {
+    width: 220px;
+    right: -60px;
+  }
+
+  .icon-2 {
+    width: 200px;
+    left: -60px;
+  }
+}
+
+/*  📱 Tablets (992px and below) */
+@media (max-width: 992px) {
+  .header-section {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 40px 0 40px;
+    min-height: auto;
+  }
+
+  .header-left {
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+  .title-1 {
+    font-size: 65px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+
+  .buy-btn {
+    padding: 12px 28px;
+    font-size: 17px;
+  }
+
+  .main-img {
+    width: 400px;
+    margin-top: -10px;
+  }
+
+  .icon-1, .icon-2 {
+    display: none;
+  }
+}
+
+/*  📱 Mobile (768px and below) */
+@media (max-width: 768px) {
+  /* .header-section {
+    padding: 25px 20px 0 20px;
+  } */
+
+  .title-1 {
+    font-size: 48px;
+    margin-bottom: 10px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 15px;
+  }
+
+  .buy-btn {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+
+  .main-img {
+    width: 300px;
+    margin-top: -10px; /* reduces gap between button and bottle */
+  }
+}
+
+/*  📱 Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  /* .header-section {
+    padding: 15px 15px 0 15px;
+  } */
+
+  .title-1 {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .buy-btn {
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .main-img {
+    width: 220px;
+    margin-top: -15px; /* brings bottle closer */
+  }
+}

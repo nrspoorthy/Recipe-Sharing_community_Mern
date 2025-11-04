@@ -1,0 +1,272 @@
+.gallery-container {
+  max-width: 1400px;
+  margin: 60px auto 40px;
+  padding: 10px 20px;
+  font-family: "Poppins", sans-serif;
+}
+
+.gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.gallery-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #222;
+}
+
+.add-btn {
+  background-color: #ff6b35;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+  color: white;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-btn:hover {
+  background-color: #e85a2b;
+  transform: rotate(90deg);
+}
+
+.add-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  background: #fff;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.08);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.4s ease;
+  text-align: center;
+  padding: 15px;
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1;
+}
+
+.overlay.show {
+  opacity: 1;
+}
+
+.overlay h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.overlay-btns {
+  display: flex;
+  gap: 12px;
+}
+
+.view-btn,
+.share-btn {
+  background-color: #ff6b35;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.view-btn:hover,
+.share-btn:hover {
+  background-color: #e85a2b;
+  transform: scale(1.08);
+}
+
+.share-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Popup Overlay */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 10px;
+}
+
+/* Popup Form */
+.popup-form {
+  background: #fff;
+  padding: 30px;
+  border-radius: 14px;
+  width: 90%;
+  max-width: 440px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease;
+}
+
+.popup-form h3 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.popup-form input,
+.popup-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.popup-form button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #ff6b35;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.popup-form button:hover {
+  background-color: #e85a2b;
+}
+
+.cancel-btn {
+  background-color: #555 !important;
+}
+
+.cancel-btn:hover {
+  background-color: #333 !important;
+}
+
+/* View Popup */
+.view-popup {
+  text-align: center;
+}
+
+.view-popup .view-img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.view-popup h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.view-popup p {
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gallery-container {
+    padding: 10px;
+  }
+
+  .gallery-item img {
+    height: 280px;
+  }
+
+  .overlay {
+    padding: 10px;
+  }
+
+  .overlay h3 {
+    font-size: 1.2rem;
+  }
+
+  .overlay-btns {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .view-popup {
+    padding: 15px;
+  }
+
+  .view-popup .view-img {
+    max-height: 220px;
+  }
+
+  .view-popup h2 {
+    font-size: 1.3rem;
+  }
+
+  .view-popup p {
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .gallery-item img {
+    height: 340px;
+  }
+}
