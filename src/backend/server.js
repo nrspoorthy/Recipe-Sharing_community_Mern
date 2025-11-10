@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
-
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -13,11 +12,10 @@ dotenv.config();
 const port = process.env.PORT || 3001;
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Connect to DB
+// Connect DB
 (async () => {
   try {
     console.log("Connecting to DB...");
@@ -28,29 +26,19 @@ app.use(express.json());
   }
 })();
 
-// API Routes
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 
-
-
+// Serve frontend
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-
 const frontendPath = path.join(__dirname, "../frontend/dist");
-
 
 app.use(express.static(frontendPath));
 
 app.get(/.*/, (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../frontend/build', 'index.html'));
+  res.sendFile(path.resolve(frontendPath, "index.html"));
 });
 
-
-
-
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+app.listen(port, () => console.log(`Server running on port ${port}`));
