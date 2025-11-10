@@ -3,7 +3,8 @@ import connectdb from "./config/db.js";
 import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-import categoryRoutes from "./routes/CategoryRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
+
 import path from "path";
 import { fileURLToPath } from "url";
 
