@@ -15,18 +15,17 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://recipe-sharing-frontend.vercel.app"
+      "https://recipe-sharing-community-mern-npqd.vercel.app"
     ],
     credentials: true,
   })
 );
 
-
 app.use(express.json());
 
 
 connectdb()
-  .then(() => console.log("MongoDB connected"))
+  .then(() => console.log("MongoDB connected successfully"))
   .catch((err) => console.log("MongoDB connection failed:", err));
 
 
@@ -35,7 +34,7 @@ app.use("/api/categories", categoryRoutes);
 
 
 app.get("/", (req, res) => {
-  res.send("Recipe Sharing Backend is running ");
+  res.send("Recipe Sharing Backend is running");
 });
 
 
