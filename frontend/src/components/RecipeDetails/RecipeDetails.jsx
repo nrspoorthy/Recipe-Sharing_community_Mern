@@ -5,10 +5,11 @@ import Footer from "../Footer/Footer";
 import Navbar from "../Home/Navbar/Navbar";
 import "aos/dist/aos.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addFavorite, removeFavorite } from "../../../redux/favoritesSlice";
+import { addFavorite, removeFavorite } from "../../redux/favoritesSlice";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import StarRating from "../StarRating/StarRating";
-import Share from "../Share/Share"; // ✅ Import Share
+import Share from "../Share/Share";
+
 
 export default function RecipeDetails() {
   const { idMeal } = useParams();

@@ -1,19 +1,18 @@
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from "./frontend/components/Home/Home";
-import CategoryDetail from "./frontend/components/CategoryDetail/CategoryDetail";
-import Menu from "./frontend/components/MenuCard/Menu";
-import RecipeDetails from "./frontend/components/RecipeDetails/RecipeDetails";
-import Mylist from "./frontend/components/Mylist/Mylist";
-import ProtectedRoute from "./frontend/components/ProtectedRoute/ProtectedRoute";
+import Home from "./components/Home/Home";
+import CategoryDetail from "./components/CategoryDetail/CategoryDetail";
+import Menu from "./components/MenuCard/Menu";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails";
+import Mylist from "./components/Mylist/Mylist";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Gallery from "./components/Gallery/Gallery";
+import About from "./components/About/About";
 
-
-import { useEffect } from 'react'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
-import Gallery from './frontend/components/Gallery/Gallery';
-import About from './frontend/components/About/About';
+import { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
   useEffect(() => {
@@ -26,13 +25,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        
-        
-        
+        {/* Public Route */}
         <Route path="/" element={<Home />} />
-        
 
-
+        {/* Protected Routes */}
         <Route
           path="/categories/:categoryName"
           element={<ProtectedRoute><CategoryDetail /></ProtectedRoute>}
@@ -41,7 +37,7 @@ function App() {
           path="/menu"
           element={<ProtectedRoute><Menu /></ProtectedRoute>}
         />
-         <Route
+        <Route
           path="/gallery"
           element={<ProtectedRoute><Gallery /></ProtectedRoute>}
         />
@@ -59,7 +55,7 @@ function App() {
         />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
-export default App
+export default App;

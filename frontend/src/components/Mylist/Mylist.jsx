@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import { removeFavorite } from "../../../redux/favoritesSlice";
+import { removeFavorite } from "../../redux/favoritesSlice";
 import "./Mylist.css";
 
 export default function Mylist() {
