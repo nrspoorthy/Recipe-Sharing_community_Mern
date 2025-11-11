@@ -5,6 +5,7 @@ import "./CategoryDetail.css"
 import "./CategoryDetail.css";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import { BASE_URL } from "../../config";
 
 export default function CategoryDetail() {
   const { categoryName } = useParams();
@@ -15,7 +16,7 @@ export default function CategoryDetail() {
     const fetchCategoryDetails = async () => {
       try {
         const response = await fetch(
-         `http://localhost:3000/api/categories/meals/${categoryName}`
+         `${BASE_URL}/api/categories/meals/${categoryName}`
         );
         const data = await response.json();
         console.log(data);
