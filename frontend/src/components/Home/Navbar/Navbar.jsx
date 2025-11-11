@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { BASE_URL } from "../../../config"; // ✅ Added this line
 
 export default function Navbar({ onLogout }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -22,20 +23,16 @@ export default function Navbar({ onLogout }) {
     location.pathname === "/login" ||
     location.pathname === "/register";
 
-
   useEffect(() => {
     const checkAuth = () => {
       setIsAuthenticated(localStorage.getItem("isAuthenticated") === "true");
     };
-
     checkAuth();
     window.addEventListener("storage", checkAuth);
-    return () => {
-      window.removeEventListener("storage", checkAuth);
-    };
+    return () => window.removeEventListener("storage", checkAuth);
   }, []);
 
-  //Logout
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("isAuthenticated");
@@ -48,11 +45,11 @@ export default function Navbar({ onLogout }) {
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
-  //Login
+  // Login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -78,7 +75,7 @@ export default function Navbar({ onLogout }) {
     }
   };
 
-  //Google login
+  // Google login
   const handleGoogleSuccess = (response) => {
     const decoded = jwtDecode(response.credential);
     console.log("Google user:", decoded);
@@ -94,22 +91,23 @@ export default function Navbar({ onLogout }) {
     setError("Google Sign-In failed. Please try again.");
   };
 
-  //  Register
+  // Register
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/api/auth/register", {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ username: name, email, password }), // ✅ changed key to match backend model
       });
 
       const data = await response.json();
 
-      if (data.success) {
+      if (response.ok) {
         alert("Registration successful! Please log in.");
         setShowRegister(false);
         setShowLogin(true);
+        setError("");
       } else {
         setError(data.message || "Registration failed");
       }
@@ -190,7 +188,6 @@ export default function Navbar({ onLogout }) {
                   Gallery
                 </Link>
               </li>
-              
 
               {!isAuthenticated ? (
                 <li>
@@ -221,7 +218,7 @@ export default function Navbar({ onLogout }) {
         </div>
       </div>
 
-      
+      {/* Login Modal */}
       {showLogin && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -279,7 +276,7 @@ export default function Navbar({ onLogout }) {
         </div>
       )}
 
-      
+      {/* Register Modal */}
       {showRegister && (
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
