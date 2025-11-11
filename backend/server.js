@@ -15,7 +15,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://recipe-sharing-community-mern-npqd.vercel.app"
+      "https://recipe-sharing-community-mern-lp98.vercel.app"
     ],
     credentials: true,
   })
