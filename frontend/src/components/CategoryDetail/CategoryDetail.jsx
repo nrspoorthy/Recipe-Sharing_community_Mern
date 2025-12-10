@@ -70,13 +70,15 @@ export default function CategoryDetail() {
           }}
         >
           {meals.map((meal) => (
-            <SwiperSlide key={meal.idMeal} data-aos="fade-up">
+            <SwiperSlide key={meal.idMeal} >
+              <div data-aos="fade-up">
               <Link to={`/recipe/${meal.idMeal}`}>
                 <div className="meal-card">
                   <img src={meal.strMealThumb} alt={meal.strMeal} />
                   <h3>{meal.strMeal}</h3>
                 </div>
               </Link>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
