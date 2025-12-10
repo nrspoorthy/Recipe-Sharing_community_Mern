@@ -36,33 +36,43 @@ export default function SampleRecipe() {
       {/* Main Layout */}
       <div className="recipe-wrapper">
         {/* Left side */}
-        <div className="left-col">
-          <div className="ingredient">
-            <div className="circle">
-              <img
-                src="https://foodily.vercel.app/assets/images/resource/recipe-3.png"
-                alt="Cucumber"
-              />
-            </div>
-            <div className="text">
-              <h3>Cucumber</h3>
-              <p>Us percipit urbanitas referrentur ea. Mei at numquam molestiae</p>
-            </div>
-          </div>
+       {/* LEFT side (updated: image first, then text) */}
+{/* LEFT side (swapped: text first, image below) */}
+<div className="left-col">
 
-          <div className="ingredient">
-            <div className="circle">
-              <img
-                src="https://foodily.vercel.app/assets/images/resource/recipe-1.png"
-                alt="Apple"
-              />
-            </div>
-            <div className="text">
-              <h3>Apple</h3>
-              <p>Us percipit urbanitas referrentur ea. Mei at numquam molestiae</p>
-            </div>
-          </div>
-        </div>
+  {/* Cucumber */}
+  <div className="ingredient swapped">
+    <div className="text">
+      <h3>Cucumber</h3>
+      <p>Refreshing, hydrating, and packed with antioxidants for a clean detox.</p>
+    </div>
+
+    <div className="circle">
+      <img
+        src="https://foodily.vercel.app/assets/images/resource/recipe-3.png"
+        alt="Cucumber"
+      />
+    </div>
+  </div>
+
+  {/* Apple */}
+  <div className="ingredient swapped">
+    <div className="text">
+      <h3>Apple</h3>
+      <p>Provides natural sweetness and a quick energy boost for your body.</p>
+    </div>
+
+    <div className="circle">
+      <img
+        src="https://foodily.vercel.app/assets/images/resource/recipe-1.png"
+        alt="Apple"
+      />
+    </div>
+  </div>
+
+</div>
+
+
 
         {/* Center bottle */}
         <div className="center-bottle">
@@ -83,7 +93,7 @@ export default function SampleRecipe() {
             </div>
             <div className="text">
               <h3>Lemon</h3>
-              <p>Us percipit urbanitas referrentur ea. Mei at numquam molestiae</p>
+              <p>Rich in vitamin C, helps detoxify and supports healthy digestion.</p>
             </div>
           </div>
 
@@ -96,7 +106,7 @@ export default function SampleRecipe() {
             </div>
             <div className="text">
               <h3>Fresh Water</h3>
-              <p>Us percipit urbanitas referrentur ea. Mei at numquam molestiae</p>
+              <p>Keeps you hydrated while blending all the ingredients smoothly.</p>
             </div>
           </div>
         </div>

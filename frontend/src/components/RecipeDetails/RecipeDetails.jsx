@@ -48,8 +48,12 @@ export default function RecipeDetails() {
     fetchRecipeDetails();
   }, [idMeal]);
 
-  if (!loading) {
-    return <h1 className="loading">Loading...</h1>;
+    if (!loading) {
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    )
   }
 
   if (!recipe) {

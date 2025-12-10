@@ -8,8 +8,8 @@ export default function Header() {
       <div className="header-left" data-aos="fade-right">
         <h1 className="title-1">Healthy Smoothie</h1>
         <p className="subtitle">
-          Lorem ipsum dolor sit amet, sed quia non numquam eius modi tempora incidunt
-          ut labore et dolore magnam aliquam quaerat voluptatem.
+          Discover delicious meals, explore every cuisine, and find inspiration in every swipe.
+        A beautiful community-driven recipe app made for food lovers.
         </p>
 
       <Link> 

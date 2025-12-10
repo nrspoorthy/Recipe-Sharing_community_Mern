@@ -11,7 +11,7 @@
   background: #beb996;
   position: sticky;
   top: 0;
-  z-index: 1000; /* Increased so navbar stays above content */
+  z-index: 1000;
 }
 
 .navbar {
@@ -185,7 +185,6 @@ input {
   margin-top: 5px;
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -223,24 +222,24 @@ input {
     display: flex;
   }
 
-  /* Mobile dropdown */
+  /* 🌟 UPDATED SMALL DROPDOWN MENU */
   .nav-links {
     display: none;
     position: absolute;
     top: 75px;
     right: 15px;
-    width: 65%;
+    width: 240px;            /* smaller width */
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
     flex-direction: column;
     align-items: center;
-    padding: 10px 0;
-    z-index: 2000; /* On top of everything */
+    padding: 12px 0;
+    z-index: 2000;
     opacity: 0;
     pointer-events: none;
     transform: translateY(-10px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
 
   .nav-links.open {
@@ -254,9 +253,7 @@ input {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    gap: 6px;
-    padding: 0;
-    margin: 0;
+    gap: 10px;
   }
 
   .ul li {
@@ -265,9 +262,9 @@ input {
     text-align: center;
     background: #fafafa;
     border-radius: 8px;
-    padding: 8px 0;
+    padding: 10px 0;
     font-size: 15px;
-    transition: background 0.3s ease, transform 0.2s ease;
+    transition: background 0.25s ease, transform 0.2s ease;
   }
 
   .ul li:hover {
@@ -276,7 +273,6 @@ input {
   }
 
   .nav-link {
-    text-decoration: none;
     color: #333;
     font-weight: 600;
   }
@@ -288,7 +284,7 @@ input {
     font-size: 15px;
     font-weight: 600;
     border-radius: 8px;
-    padding: 8px 0;
+    padding: 10px 0;
     transition: background 0.3s ease, transform 0.2s ease;
   }
 

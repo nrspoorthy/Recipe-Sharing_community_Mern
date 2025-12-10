@@ -5,10 +5,26 @@ import Meal from "../models/Meal.js";
 const router = express.Router();
 
 
+let cachedCategories = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = 10 * 60 * 1000; 
+
+
 router.get("/", async (req, res) => {
   try {
+    const now = Date.now();
+
+
+    if (cachedCategories && now - lastFetchTime < CACHE_DURATION) {
+      return res.json({ categories: cachedCategories, cached: true });
+    }
+
     const categories = await Category.find();
-    res.json({ categories });
+
+    cachedCategories = categories;
+    lastFetchTime = now;
+
+    res.json({ categories, cached: false });
   } catch (error) {
     console.error("Error fetching categories:", error);
     res.status(500).json({ message: "Error fetching categories", error });
@@ -19,20 +35,24 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     const { idCategory, strCategory, strCategoryThumb, strCategoryDescription } = req.body;
+
     const newCategory = new Category({
       idCategory,
       strCategory,
       strCategoryThumb,
       strCategoryDescription,
     });
+
     await newCategory.save();
+
+    cachedCategories = null;
+
     res.status(201).json({ message: "Category added successfully", newCategory });
   } catch (error) {
     console.error("Error inserting category:", error);
     res.status(400).json({ message: "Error inserting category", error });
   }
 });
-
 
 router.get("/meals/:category", async (req, res) => {
   try {
@@ -50,6 +70,7 @@ router.get("/meals/:category", async (req, res) => {
   }
 });
 
+
 router.post("/addMealsBulk", async (req, res) => {
   try {
     const { meals } = req.body;
@@ -66,6 +87,7 @@ router.post("/addMealsBulk", async (req, res) => {
   }
 });
 
+
 router.delete("/deleteAllMeals", async (req, res) => {
   try {
     await Meal.deleteMany({});
@@ -74,6 +96,5 @@ router.delete("/deleteAllMeals", async (req, res) => {
     res.status(500).json({ message: "Error deleting meals", error });
   }
 });
-
 
 export default router;

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import Slider from "react-slick"; 
-import "./CategoryDetail.css"
-import "./CategoryDetail.css";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Grid, Pagination } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/grid";
+import "swiper/css/pagination";
+
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
+import "./CategoryDetail.css";
 import { BASE_URL } from "../../config";
 
 export default function CategoryDetail() {
@@ -15,11 +21,8 @@ export default function CategoryDetail() {
   useEffect(() => {
     const fetchCategoryDetails = async () => {
       try {
-        const response = await fetch(
-         `${BASE_URL}/api/categories/meals/${categoryName}`
-        );
+        const response = await fetch(`${BASE_URL}/api/categories/meals/${categoryName}`);
         const data = await response.json();
-        console.log(data);
         setMeals(data.meals || []);
       } catch (error) {
         console.error("Error fetching meals:", error);
@@ -27,37 +30,17 @@ export default function CategoryDetail() {
         setLoading(false);
       }
     };
+
     fetchCategoryDetails();
   }, [categoryName]);
 
-  const sliderSettings = {
-  dots: true,
-  infinite: true,
-  speed: 1000,
-  slidesToShow: 5,
-  rows: meals.length <= 4 ? 1 : 2, 
-  slidesToScroll: 1,
-  responsive: [
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 2,
-        rows: 1
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 1,
-        rows: 1
-      }
-    }
-  ]
-};
-
-
+ 
   if (loading) {
-    return <h1 style={{ textAlign: "center", marginTop: "50px" }}>Loading...</h1>;
+    return (
+      <div className="spinner-container">
+        <div className="spinner"></div>
+      </div>
+    );
   }
 
   return (
@@ -65,24 +48,40 @@ export default function CategoryDetail() {
       <Navbar />
       <div className="category-detail">
         <h1 className="categoryheading">{categoryName} Meals</h1>
-        {meals.length === 0 ? (
-          <p>No meals found for this category.</p>
-        ) : (
-          <Slider {...sliderSettings}>
-            {meals.map((meal, index) => (
-              <div key={meal.idMeal} className="meal-slide" data-aos="fade-up" data-aos-delay={index * 100}>
-                <Link to={`/recipe/${meal.idMeal}`}>
-                  <div className="meal-card">
-                    <img src={meal.strMealThumb} alt={meal.strMeal} />
-                    <h3>{meal.strMeal}</h3>
-                  </div>
-                </Link>
-              </div>
-            ))}
-          </Slider>
 
-        )}
+        <Swiper
+          modules={[Grid, Pagination]}
+          pagination={{ clickable: true }}
+          grid={{ rows: 2, fill: "row" }}
+          spaceBetween={10}
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+              grid: { rows: 2, fill: "row" },
+            },
+            600: {
+              slidesPerView: 4,
+              grid: { rows: 2, fill: "row" },
+            },
+            1024: {
+              slidesPerView: 5,
+              grid: { rows: 2, fill: "row" },
+            },
+          }}
+        >
+          {meals.map((meal) => (
+            <SwiperSlide key={meal.idMeal} data-aos="fade-up">
+              <Link to={`/recipe/${meal.idMeal}`}>
+                <div className="meal-card">
+                  <img src={meal.strMealThumb} alt={meal.strMeal} />
+                  <h3>{meal.strMeal}</h3>
+                </div>
+              </Link>
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
+
       <Footer />
     </>
   );

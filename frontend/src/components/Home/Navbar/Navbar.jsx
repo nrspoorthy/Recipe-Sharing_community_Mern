@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { BASE_URL } from "../../../config"; // ✅ Added this line
+import { BASE_URL } from "../../../config";
 
 export default function Navbar({ onLogout }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -14,6 +14,7 @@ export default function Navbar({ onLogout }) {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,8 +38,10 @@ export default function Navbar({ onLogout }) {
     localStorage.removeItem("token");
     localStorage.removeItem("isAuthenticated");
     setIsAuthenticated(false);
+
     alert("Logged out successfully!");
     if (onLogout) onLogout();
+
     window.dispatchEvent(new Event("storage"));
     navigate("/");
   };
@@ -70,7 +73,6 @@ export default function Navbar({ onLogout }) {
         setError(data.message || "Invalid credentials");
       }
     } catch (err) {
-      console.error(err);
       setError("Server error. Try again later.");
     }
   };
@@ -79,10 +81,12 @@ export default function Navbar({ onLogout }) {
   const handleGoogleSuccess = (response) => {
     const decoded = jwtDecode(response.credential);
     console.log("Google user:", decoded);
+
     localStorage.setItem("isAuthenticated", "true");
     alert("Login successful!");
     setShowLogin(false);
     setIsAuthenticated(true);
+
     window.dispatchEvent(new Event("storage"));
     navigate("/");
   };
@@ -98,7 +102,7 @@ export default function Navbar({ onLogout }) {
       const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: name, email, password }), // ✅ changed key to match backend model
+        body: JSON.stringify({ username: name, email, password }),
       });
 
       const data = await response.json();
@@ -112,7 +116,6 @@ export default function Navbar({ onLogout }) {
         setError(data.message || "Registration failed");
       }
     } catch (err) {
-      console.error(err);
       setError("Server error. Try again later.");
     }
   };
@@ -135,19 +138,19 @@ export default function Navbar({ onLogout }) {
       >
         <div className="navbar">
           {/* Logo */}
-          <div>
-            <img
-              src={
-                isAboutOrGalleryOrLogin
-                  ? "https://foodily.vercel.app/assets/images/logo-2.png"
-                  : "https://foodily.vercel.app/assets/images/logo.png"
-              }
-              className="logo"
-              alt="logo"
-            />
-          </div>
+          <Link  to="/">
+          <img
+            src={
+              isAboutOrGalleryOrLogin
+                ? "https://foodily.vercel.app/assets/images/logo-2.png"
+                : "https://foodily.vercel.app/assets/images/logo.png"
+            }
+            className="logo"
+            alt="logo"
+          />
+          </Link>
 
-          {/* Hamburger icon */}
+          {/* Hamburger */}
           <div className="hamburger" onClick={toggleMenu}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -169,45 +172,88 @@ export default function Navbar({ onLogout }) {
           <div className={`nav-links ${menuOpen ? "open" : ""}`}>
             <ul className="ul">
               <li>
-                <Link to="/" className="nav-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Home
                 </Link>
               </li>
+
               <li>
-                <Link to="/about" className="nav-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/about"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   About
                 </Link>
               </li>
+
               <li>
-                <Link to="/menu" className="nav-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/menu"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Menu
                 </Link>
               </li>
+
               <li>
-                <Link to="/gallery" className="nav-link" onClick={() => setMenuOpen(false)}>
+                <Link
+                  to="/gallery"
+                  className="nav-link"
+                  onClick={() => setMenuOpen(false)}
+                >
                   Gallery
                 </Link>
               </li>
 
+              
               {!isAuthenticated ? (
                 <li>
-                  <span className="nav-link" onClick={() => setShowLogin(true)}>
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setShowLogin(true);
+                      setMenuOpen(false); //  CLOSE MENU
+                    }}
+                  >
                     Login
                   </span>{" "}
                   /{" "}
-                  <span className="nav-link" onClick={() => setShowRegister(true)}>
+                  <span
+                    className="nav-link"
+                    onClick={() => {
+                      setShowRegister(true);
+                      setMenuOpen(false); //  CLOSE MENU
+                    }}
+                  >
                     Register
                   </span>
                 </li>
               ) : (
                 <>
                   <li>
-                    <Link to="/mylist" className="nav-link" onClick={() => setMenuOpen(false)}>
+                    <Link
+                      to="/mylist"
+                      className="nav-link"
+                      onClick={() => setMenuOpen(false)}
+                    >
                       Wishlist
                     </Link>
                   </li>
+
                   <li>
-                    <button className="logout-btn nav-link" onClick={handleLogout}>
+                    <button
+                      className="logout-btn nav-link"
+                      onClick={() => {
+                        handleLogout();
+                        setMenuOpen(false); // 🔥 close menu on logout
+                      }}
+                    >
                       Logout
                     </button>
                   </li>
@@ -228,11 +274,7 @@ export default function Navbar({ onLogout }) {
             <h2>Welcome back</h2>
             <p>Please log in to continue sharing recipes.</p>
 
-            <GoogleLogin
-              onSuccess={handleGoogleSuccess}
-              onError={handleGoogleError}
-              width="300"
-            />
+            <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError} />
 
             <div className="divider">
               <span>or sign in with email</span>

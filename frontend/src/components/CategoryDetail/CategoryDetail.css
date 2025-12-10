@@ -1,90 +1,119 @@
-/* === Container Styles === */
+/* ---------- PAGE WRAPPER ---------- */
 .category-detail {
   padding: 60px 20px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: auto;
   text-align: center;
 }
 
-/* === Heading === */
 .categoryheading {
-  font-size: 3rem;
-  margin-bottom: 50px;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
   font-weight: 800;
   color: #2c3e50;
-  text-transform: capitalize;
-  letter-spacing: 1px;
 }
 
-/* === Meal Card Styles === */
-.meal-slide {
+/* ---------- SWIPER SLIDE SPACING ---------- */
+.swiper-slide {
   display: flex !important;
   justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-right: 10%;
+  padding: 15px;
 }
 
+/* ---------- CARD STYLING ---------- */
 .meal-card {
   background: #ffffff;
-  border-radius: 16px;
-  padding: 20px;
-  width: 220px;
+  border-radius: 10px;
+  padding: 5px;
+  width: 160px;
   text-align: center;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
 }
 
 .meal-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
 }
 
 .meal-card img {
   width: 100%;
-  height: 160px;
+  height: 150px;
   object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 12px;
+  border-radius: 6px;
+  margin-bottom: 6px;
 }
 
 .meal-card h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: #34495e;
-  margin: 0;
-  line-height: 1.4;
-  min-height: 45px;
+}
+
+/* ---------- SPINNER ---------- */
+.spinner-container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  text-align: center;
+  align-items: center;
+  height: 60vh;
 }
 
-/* === AOS Animations === */
-.meal-slide[data-aos] {
-  will-change: transform, opacity;
+.spinner {
+  width: 55px;
+  height: 55px;
+  border: 6px solid #eee;
+  border-top: 6px solid #555;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
 
-/* === Responsive Adjustments === */
-@media (max-width: 1024px) {
-  .meal-card {
-    width: 200px;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
+}
+
+/* ---------- PAGINATION ---------- */
+.swiper-pagination-bullet {
+  background: #bbb;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+
+.swiper-pagination-bullet-active {
+  background: #333;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 599px) {
+  .meal-card {
+    width: 160px;
+  }
+
   .meal-card img {
-    height: 140px;
+    height: 150px;
+  }
+
+  .meal-card h3 {
+    font-size: 0.85rem;
+  }
+
+  .categoryheading {
+    font-size: 2rem;
   }
 }
 
-@media (max-width: 768px) {
+@media (min-width: 600px) and (max-width: 1023px) {
   .meal-card {
-    width: 180px;
-    padding: 16px;
+    width: 190px;
   }
 
   .meal-card img {
     height: 130px;
+  }
+
+  .meal-card h3 {
+    font-size: 0.95rem;
   }
 
   .categoryheading {
@@ -92,17 +121,20 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (min-width: 1024px) {
   .meal-card {
-    width: 100%;
-    padding: 14px;
+    width: 210px;
   }
 
   .meal-card img {
-    height: 120px;
+    height: 190px;
+  }
+
+  .meal-card h3 {
+    font-size: 1rem;
   }
 
   .categoryheading {
-    font-size: 1.8rem;
+    font-size: 2.6rem;
   }
 }

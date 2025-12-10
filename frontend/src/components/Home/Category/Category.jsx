@@ -33,9 +33,14 @@ function Category() {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
+if (loading) {
+  return (
+    <div className="spinner-container">
+      <div className="spinner"></div>
+    </div>
+  );
+}
+
 
   const visibleCategories = isMobile ? Category.slice(0, 6) : Category;
 

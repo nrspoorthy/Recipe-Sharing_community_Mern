@@ -37,7 +37,7 @@ export default function Home() {
             <SampleRecipe />
           </div>
 
-          <div data-aos="fade-up" data-aos-offset="300" data-aos-anchor-placement="center-center">
+          <div data-aos="fade-up" data-aos-easing="ease-in-sine">
             <Footer />
           </div>
         </>

@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3001;
 
-// ✅ CORS fix: Add allowed methods + headers
+
 app.use(
   cors({
     origin: [
@@ -23,22 +23,22 @@ app.use(
   })
 );
 
-// Middleware
+
 app.use(express.json());
 
-// ✅ Connect MongoDB
-connectdb()
-  .then(() => console.log("✅ MongoDB connected successfully"))
-  .catch((err) => console.log("❌ MongoDB connection failed:", err));
 
-// ✅ API routes
+connectdb()
+  .then(() => console.log("MongoDB connected successfully"))
+  .catch((err) => console.log("MongoDB connection failed:", err));
+
+
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
 
-// ✅ Test route
+
 app.get("/", (req, res) => {
-  res.send("Recipe Sharing Backend is running 🚀");
+  res.send("Recipe Sharing Backend is running");
 });
 
-// ✅ Start server
+
 app.listen(port, () => console.log(`Server running on port ${port}`));

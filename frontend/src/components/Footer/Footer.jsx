@@ -51,10 +51,10 @@ export default function Footer() {
 
           {/* Subscribe */}
           <div className="footer-col">
-            <h3>Subscribe</h3>
+           
             <div className="subscribe-box">
               <input type="email" placeholder="Your Email" />
-              <button>Subscribe Now</button>
+              <button>Contact US</button>
             </div>
           </div>
         </div>
