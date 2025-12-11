@@ -9,12 +9,16 @@ import { addFavorite, removeFavorite } from "../../redux/favoritesSlice";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import StarRating from "../StarRating/StarRating";
 import Share from "../Share/Share";
-
+import { BASE_URL } from "../../config";
 
 export default function RecipeDetails() {
   const { idMeal } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  // 🔥 New States for Translation
+  const [translatedText, setTranslatedText] = useState("");
+  const [translating, setTranslating] = useState(false);
 
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
@@ -48,7 +52,7 @@ export default function RecipeDetails() {
     fetchRecipeDetails();
   }, [idMeal]);
 
-    if (!loading) {
+  if (!loading) {
     return (
       <div className="spinner-container">
         <div className="spinner"></div>
@@ -60,10 +64,36 @@ export default function RecipeDetails() {
     return <h1 className="loading">No Recipe Found</h1>;
   }
 
+  // 🌍 Translation Function
+  const handleTranslate = async (lang) => {
+    setTranslating(true);
+    setTranslatedText("");
+
+    try {
+      const resp = await fetch(`${BASE_URL}/api/chatbot/translate`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          instructions: recipe.strInstructions,
+          targetLang: lang,
+        }),
+      });
+
+      const data = await resp.json();
+      setTranslatedText(data.translation || "Translation unavailable.");
+    } catch (error) {
+      console.log(error);
+      setTranslatedText("Error translating text.");
+    } finally {
+      setTranslating(false);
+    }
+  };
+
   return (
     <>
       <Navbar />
       <div className="recipe-container">
+
         <h1 className="recipe-title" data-aos="fade-up">
           <span className="title-main">{recipe.strMeal.split(" ")[0]}</span>{" "}
           <span className="title-highlight">
@@ -84,11 +114,10 @@ export default function RecipeDetails() {
         />
 
         <div className="recipe-main">
-          {/* Left side */}
+          {/* Left Image Section */}
           <div className="recipe-img" data-aos="fade-right">
             <img src={recipe.strMealThumb} alt={recipe.strMeal} />
 
-            {/* Favorite button */}
             <button className="fav-btn" onClick={handleFavorite}>
               {alreadyFavorite ? (
                 <FaHeart className="heart filled" />
@@ -97,13 +126,12 @@ export default function RecipeDetails() {
               )}
             </button>
 
-            
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <Share title={recipe.strMeal} url={window.location.href} />
             </div>
           </div>
 
-          {/* Right side */}
+          {/* Ingredients */}
           <div className="ingredients-box" data-aos="fade-left">
             <h2>Ingredients</h2>
             <ul>
@@ -123,11 +151,37 @@ export default function RecipeDetails() {
           </div>
         </div>
 
+        {/* Instructions Block */}
         <div className="instructions-box" data-aos="fade-up">
           <h2>Instructions</h2>
+
           <p>{recipe.strInstructions}</p>
+
+          {/* 🌍 Translation UI */}
+          <div className="translate-box">
+            <h3>Translate Instructions</h3>
+
+            <select onChange={(e) => handleTranslate(e.target.value)}>
+              <option value="">Select Language</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Telugu">Telugu</option>
+              <option value="Tamil">Tamil</option>
+              <option value="Kannada">Kannada</option>
+              <option value="Malayalam">Malayalam</option>
+              <option value="Spanish">Spanish</option>
+            </select>
+
+            {translating && (
+              <div className="spinner small-spinner"></div>
+            )}
+
+            {translatedText && (
+              <p className="translated-text">{translatedText}</p>
+            )}
+          </div>
         </div>
       </div>
+
       <Footer />
     </>
   );

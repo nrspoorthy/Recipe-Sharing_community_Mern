@@ -4,6 +4,9 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import chatbotRoutes from "./routes/chatbotRoutes.js";
+
+
 
 dotenv.config();
 
@@ -68,6 +71,8 @@ connectdb()
 
 app.use("/api/auth", authRoutes);
 app.use("/api/categories", categoryRoutes);
+app.use("/api/chatbot", chatbotRoutes);
+
 
 
 app.get("/", (req, res) => {
