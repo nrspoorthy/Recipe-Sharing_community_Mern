@@ -1,16 +1,7 @@
-import dotenv from "dotenv";
-dotenv.config(); 
-
 import express from "express";
-import OpenAI from "openai";
-
-console.log("CHATBOT ROUTE KEY:", process.env.OPENAI_API_KEY); 
+import axios from "axios";
 
 const router = express.Router();
-
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
 
 router.post("/translate", async (req, res) => {
   try {
@@ -20,23 +11,17 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    const prompt = `
-Translate the following cooking instructions into ${targetLang}.
-Only return the translation, no extra explanation.
-
-Instructions:
-${instructions}
-`;
-
-    const response = await client.chat.completions.create({
-     model: "gpt-4o-mini",
-
-      messages: [{ role: "user", content: prompt }],
+    
+    const response = await axios.post("https://libretranslate.de/translate", {
+      q: instructions,
+      source: "auto",
+      target: targetLang.toLowerCase(), 
+      format: "text",
     });
 
-    res.json({ translation: response.choices[0].message.content });
+    res.json({ translation: response.data.translatedText });
   } catch (error) {
-    console.error("Translation error:", error);
+    console.error("Translation error:", error?.response?.data || error.message || error);
     res.status(500).json({ error: "Translation failed" });
   }
 });
