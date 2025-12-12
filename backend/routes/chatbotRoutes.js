@@ -11,17 +11,16 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    
     const response = await axios.post("https://libretranslate.de/translate", {
       q: instructions,
       source: "auto",
-      target: targetLang.toLowerCase(), 
+      target: targetLang.toLowerCase(),
       format: "text",
     });
 
     res.json({ translation: response.data.translatedText });
   } catch (error) {
-    console.error("Translation error:", error?.response?.data || error.message || error);
+    console.error("Translation error:", error?.response?.data || error.message);
     res.status(500).json({ error: "Translation failed" });
   }
 });
