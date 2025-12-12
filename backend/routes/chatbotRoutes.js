@@ -1,7 +1,13 @@
+import dotenv from "dotenv";
+dotenv.config(); 
+
 import express from "express";
 import OpenAI from "openai";
 
+console.log("CHATBOT ROUTE KEY:", process.env.OPENAI_API_KEY); 
+
 const router = express.Router();
+
 const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -27,9 +33,7 @@ ${instructions}
       messages: [{ role: "user", content: prompt }],
     });
 
-    const translation = response.choices[0].message.content;
-
-    res.json({ translation });
+    res.json({ translation: response.choices[0].message.content });
   } catch (error) {
     console.error("Translation error:", error);
     res.status(500).json({ error: "Translation failed" });

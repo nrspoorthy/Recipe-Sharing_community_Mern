@@ -6,8 +6,8 @@ const router = express.Router();
 
 
 let cachedCategories = null;
-let lastFetchTime = 0;
-const CACHE_DURATION = 10 * 60 * 1000; 
+let lastCategoryFetch = 0;
+const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
 
 
 router.get("/", async (req, res) => {
@@ -15,22 +15,21 @@ router.get("/", async (req, res) => {
     const now = Date.now();
 
 
-    if (cachedCategories && now - lastFetchTime < CACHE_DURATION) {
+    if (cachedCategories && now - lastCategoryFetch < CACHE_DURATION) {
       return res.json({ categories: cachedCategories, cached: true });
     }
 
-    const categories = await Category.find();
+    const categories = await Category.find().lean();
 
     cachedCategories = categories;
-    lastFetchTime = now;
+    lastCategoryFetch = now;
 
     res.json({ categories, cached: false });
   } catch (error) {
     console.error("Error fetching categories:", error);
-    res.status(500).json({ message: "Error fetching categories", error });
+    res.status(500).json({ message: "Error fetching categories" });
   }
 });
-
 
 router.post("/", async (req, res) => {
   try {
@@ -45,6 +44,7 @@ router.post("/", async (req, res) => {
 
     await newCategory.save();
 
+
     cachedCategories = null;
 
     res.status(201).json({ message: "Category added successfully", newCategory });
@@ -57,7 +57,10 @@ router.post("/", async (req, res) => {
 router.get("/meals/:category", async (req, res) => {
   try {
     const { category } = req.params;
-    const meals = await Meal.find({ strCategory: category });
+
+    const meals = await Meal.find({ strCategory: category })
+      .lean()
+      .limit(300); // Prevent huge payloads
 
     if (!meals.length) {
       return res.status(404).json({ message: "No meals found for this category." });
@@ -79,7 +82,9 @@ router.post("/addMealsBulk", async (req, res) => {
       return res.status(400).json({ message: "Expected an array of meals" });
     }
 
-    await Meal.insertMany(meals);
+
+    await Meal.insertMany(meals, { ordered: false });
+
     res.status(201).json({ message: "Meals added successfully" });
   } catch (error) {
     console.error("Error inserting meals:", error);

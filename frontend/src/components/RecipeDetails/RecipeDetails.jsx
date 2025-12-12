@@ -16,7 +16,7 @@ export default function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // 🔥 New States for Translation
+ 
   const [translatedText, setTranslatedText] = useState("");
   const [translating, setTranslating] = useState(false);
 

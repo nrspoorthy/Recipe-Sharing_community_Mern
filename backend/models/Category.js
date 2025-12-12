@@ -19,5 +19,10 @@ const categorySchema = new mongoose.Schema({
   },
 });
 
+// 🚀 SPEED BOOST:
+// Indexing makes searching & listing categories MUCH faster.
+categorySchema.index({ strCategory: 1 }); 
+categorySchema.index({ idCategory: 1 }, { unique: true });
+
 const Category = mongoose.model("Category", categorySchema);
 export default Category;
