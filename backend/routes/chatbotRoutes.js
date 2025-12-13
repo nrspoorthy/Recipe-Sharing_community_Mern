@@ -3,6 +3,17 @@ import axios from "axios";
 
 const router = express.Router();
 
+// Split long text into chunks under 400 chars
+function splitIntoChunks(text, size = 400) {
+  const chunks = [];
+  let i = 0;
+  while (i < text.length) {
+    chunks.push(text.substring(i, i + size));
+    i += size;
+  }
+  return chunks;
+}
+
 router.post("/translate", async (req, res) => {
   try {
     const { instructions, targetLang } = req.body;
@@ -13,33 +24,29 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    const apiUrl = "https://api.mymemory.translated.net/get";
+    const chunks = splitIntoChunks(instructions);
+    console.log("CHUNKS CREATED:", chunks.length);
 
-    const response = await axios.get(apiUrl, {
-      params: {
-        q: instructions,
-        langpair: `en|${targetLang}`,
-      },
-    });
+    let translatedText = "";
 
-    console.log("API RAW RESPONSE:", response.data);
+    for (const chunk of chunks) {
+      const response = await axios.get(
+        "https://api.mymemory.translated.net/get",
+        {
+          params: {
+            q: chunk,
+            langpair: `en|${targetLang}`
+          }
+        }
+      );
 
-    let translation = response.data?.responseData?.translatedText || "";
+      console.log("CHUNK RESPONSE:", response.data);
 
-    // fallback: choose best match
-    const matches = response.data?.matches || [];
-    const best = matches.find((m) => m.match >= 0.90);
-
-    if (best) {
-      translation = best.translation;
+      const translated = response.data?.responseData?.translatedText || "";
+      translatedText += translated + " ";
     }
 
-    if (!translation) {
-      console.log("NO TRANSLATION FOUND!");
-      return res.json({ translation: "Translation unavailable." });
-    }
-
-    return res.json({ translation });
+    return res.json({ translation: translatedText.trim() });
 
   } catch (error) {
     console.error("Translation error:", error);
