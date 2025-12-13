@@ -3,10 +3,11 @@ import axios from "axios";
 
 const router = express.Router();
 
-// Split long text into chunks under 400 chars
+// Split long text into chunks (MyMemory limit = 500 chars)
 function splitIntoChunks(text, size = 400) {
   const chunks = [];
   let i = 0;
+
   while (i < text.length) {
     chunks.push(text.substring(i, i + size));
     i += size;
@@ -24,32 +25,35 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
+    // 1. Break long recipe instructions into safe chunks
     const chunks = splitIntoChunks(instructions);
-    console.log("CHUNKS CREATED:", chunks.length);
+    console.log("TOTAL CHUNKS:", chunks.length);
 
     let translatedText = "";
 
+    // 2. Translate each chunk one-by-one
     for (const chunk of chunks) {
-      const response = await axios.get(
+      const apiRes = await axios.get(
         "https://api.mymemory.translated.net/get",
         {
           params: {
             q: chunk,
-            langpair: `en|${targetLang}`
-          }
+            langpair: `en|${targetLang}`,
+          },
         }
       );
 
-      console.log("CHUNK RESPONSE:", response.data);
+      console.log("CHUNK RESPONSE:", apiRes.data);
 
-      const translated = response.data?.responseData?.translatedText || "";
-      translatedText += translated + " ";
+      const text = apiRes.data?.responseData?.translatedText || "";
+      translatedText += text + " ";
     }
 
+    // 3. Send full combined translation
     return res.json({ translation: translatedText.trim() });
 
   } catch (error) {
-    console.error("Translation error:", error);
+    console.error("Translation error:", error.message);
     return res.status(500).json({ error: "Translation failed" });
   }
 });
