@@ -7,21 +7,43 @@ router.post("/translate", async (req, res) => {
   try {
     const { instructions, targetLang } = req.body;
 
+    console.log("REQUEST BODY:", req.body);
+
     if (!instructions || !targetLang) {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    const response = await axios.post("https://libretranslate.de/translate", {
-      q: instructions,
-      source: "auto",
-      target: targetLang.toLowerCase(),
-      format: "text",
+    const apiUrl = "https://api.mymemory.translated.net/get";
+
+    const response = await axios.get(apiUrl, {
+      params: {
+        q: instructions,
+        langpair: `en|${targetLang}`,
+      },
     });
 
-    res.json({ translation: response.data.translatedText });
+    console.log("API RAW RESPONSE:", response.data);
+
+    let translation = response.data?.responseData?.translatedText || "";
+
+    // fallback: choose best match
+    const matches = response.data?.matches || [];
+    const best = matches.find((m) => m.match >= 0.90);
+
+    if (best) {
+      translation = best.translation;
+    }
+
+    if (!translation) {
+      console.log("NO TRANSLATION FOUND!");
+      return res.json({ translation: "Translation unavailable." });
+    }
+
+    return res.json({ translation });
+
   } catch (error) {
-    console.error("Translation error:", error?.response?.data || error.message);
-    res.status(500).json({ error: "Translation failed" });
+    console.error("Translation error:", error);
+    return res.status(500).json({ error: "Translation failed" });
   }
 });
 

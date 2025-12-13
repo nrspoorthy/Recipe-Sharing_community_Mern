@@ -16,7 +16,7 @@ export default function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(false);
 
- 
+
   const [translatedText, setTranslatedText] = useState("");
   const [translating, setTranslating] = useState(false);
 
@@ -57,15 +57,17 @@ export default function RecipeDetails() {
       <div className="spinner-container">
         <div className="spinner"></div>
       </div>
-    )
+    );
   }
 
   if (!recipe) {
     return <h1 className="loading">No Recipe Found</h1>;
   }
 
-  // 🌍 Translation Function
+  // 🌍 Translation function
   const handleTranslate = async (lang) => {
+    if (!lang) return;
+
     setTranslating(true);
     setTranslatedText("");
 
@@ -75,7 +77,7 @@ export default function RecipeDetails() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           instructions: recipe.strInstructions,
-          targetLang: lang,
+          targetLang: lang, // send language code (hi, te, ta, etc.)
         }),
       });
 
@@ -93,7 +95,6 @@ export default function RecipeDetails() {
     <>
       <Navbar />
       <div className="recipe-container">
-
         <h1 className="recipe-title" data-aos="fade-up">
           <span className="title-main">{recipe.strMeal.split(" ")[0]}</span>{" "}
           <span className="title-highlight">
@@ -114,7 +115,7 @@ export default function RecipeDetails() {
         />
 
         <div className="recipe-main">
-          {/* Left Image Section */}
+          {/* Left Image */}
           <div className="recipe-img" data-aos="fade-right">
             <img src={recipe.strMealThumb} alt={recipe.strMeal} />
 
@@ -151,29 +152,26 @@ export default function RecipeDetails() {
           </div>
         </div>
 
-        {/* Instructions Block */}
+        {/* Instructions */}
         <div className="instructions-box" data-aos="fade-up">
           <h2>Instructions</h2>
-
           <p>{recipe.strInstructions}</p>
 
-          {/* 🌍 Translation UI */}
+          
           <div className="translate-box">
             <h3>Translate Instructions</h3>
 
             <select onChange={(e) => handleTranslate(e.target.value)}>
               <option value="">Select Language</option>
-              <option value="Hindi">Hindi</option>
-              <option value="Telugu">Telugu</option>
-              <option value="Tamil">Tamil</option>
-              <option value="Kannada">Kannada</option>
-              <option value="Malayalam">Malayalam</option>
-              <option value="Spanish">Spanish</option>
+              <option value="hi">Hindi</option>
+              <option value="te">Telugu</option>
+              <option value="ta">Tamil</option>
+              <option value="kn">Kannada</option>
+              <option value="ml">Malayalam</option>
+              <option value="es">Spanish</option>
             </select>
 
-            {translating && (
-              <div className="spinner small-spinner"></div>
-            )}
+            {translating && <div className="spinner small-spinner"></div>}
 
             {translatedText && (
               <p className="translated-text">{translatedText}</p>
