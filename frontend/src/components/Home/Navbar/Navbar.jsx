@@ -47,6 +47,13 @@ export default function Navbar({ onLogout }) {
   };
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
+  const handleProtectedClick = (e, path) => {
+  if (!isAuthenticated) {
+    e.preventDefault();      
+    setShowLogin(true);      
+    setMenuOpen(false);
+  }
+};
 
   // Login
   const handleLogin = async (e) => {
@@ -185,30 +192,42 @@ export default function Navbar({ onLogout }) {
                 <Link
                   to="/about"
                   className="nav-link"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(e) => {
+                    handleProtectedClick(e, "/about");
+                    setMenuOpen(false);
+                  }}
                 >
                   About
                 </Link>
+
               </li>
 
               <li>
                 <Link
-                  to="/menu"
-                  className="nav-link"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Menu
-                </Link>
+                to="/menu"
+                className="nav-link"
+                onClick={(e) => {
+                  handleProtectedClick(e, "/menu");
+                  setMenuOpen(false);
+                }}
+              >
+                Menu
+              </Link>
+
               </li>
 
               <li>
                 <Link
-                  to="/gallery"
-                  className="nav-link"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Gallery
-                </Link>
+                to="/gallery"
+                className="nav-link"
+                onClick={(e) => {
+                  handleProtectedClick(e, "/gallery");
+                  setMenuOpen(false);
+                }}
+              >
+                Gallery
+              </Link>
+
               </li>
 
               
@@ -218,7 +237,7 @@ export default function Navbar({ onLogout }) {
                     className="nav-link"
                     onClick={() => {
                       setShowLogin(true);
-                      setMenuOpen(false); //  CLOSE MENU
+                      setMenuOpen(false); 
                     }}
                   >
                     Login
@@ -228,7 +247,7 @@ export default function Navbar({ onLogout }) {
                     className="nav-link"
                     onClick={() => {
                       setShowRegister(true);
-                      setMenuOpen(false); //  CLOSE MENU
+                      setMenuOpen(false); 
                     }}
                   >
                     Register
@@ -237,13 +256,17 @@ export default function Navbar({ onLogout }) {
               ) : (
                 <>
                   <li>
-                    <Link
-                      to="/mylist"
-                      className="nav-link"
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      Wishlist
-                    </Link>
+                          <Link
+                          to="/mylist"
+                          className="nav-link"
+                          onClick={(e) => {
+                            handleProtectedClick(e, "/mylist");
+                            setMenuOpen(false);
+                          }}
+                        >
+                          Wishlist
+                        </Link>
+
                   </li>
 
                   <li>
@@ -251,7 +274,7 @@ export default function Navbar({ onLogout }) {
                       className="logout-btn nav-link"
                       onClick={() => {
                         handleLogout();
-                        setMenuOpen(false); // 🔥 close menu on logout
+                        setMenuOpen(false); 
                       }}
                     >
                       Logout

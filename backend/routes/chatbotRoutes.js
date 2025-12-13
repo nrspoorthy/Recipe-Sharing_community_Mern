@@ -3,7 +3,7 @@ import axios from "axios";
 
 const router = express.Router();
 
-// Split long text into chunks (MyMemory limit = 500 chars)
+
 function splitIntoChunks(text, size = 400) {
   const chunks = [];
   let i = 0;
@@ -25,13 +25,13 @@ router.post("/translate", async (req, res) => {
       return res.status(400).json({ error: "Missing data" });
     }
 
-    // 1. Break long recipe instructions into safe chunks
+    
     const chunks = splitIntoChunks(instructions);
     console.log("TOTAL CHUNKS:", chunks.length);
 
     let translatedText = "";
 
-    // 2. Translate each chunk one-by-one
+    
     for (const chunk of chunks) {
       const apiRes = await axios.get(
         "https://api.mymemory.translated.net/get",
@@ -49,7 +49,7 @@ router.post("/translate", async (req, res) => {
       translatedText += text + " ";
     }
 
-    // 3. Send full combined translation
+    
     return res.json({ translation: translatedText.trim() });
 
   } catch (error) {
