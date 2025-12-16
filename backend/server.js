@@ -18,7 +18,7 @@ const port = process.env.PORT || 3001;
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://recipe-sharing-community-mern-lp98-ddz5i02r4.vercel.app",
+  "https://recipe-sharing-community-mern-maind.vercel.app",
 ];
 
 
