@@ -9,7 +9,7 @@ import { addFavorite, removeFavorite } from "../../redux/favoritesSlice";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import StarRating from "../StarRating/StarRating";
 import Share from "../Share/Share";
-import { BASE_URL } from "../../config";
+// import { BASE_URL } from "../../config";
 
 export default function RecipeDetails() {
   const { idMeal } = useParams();
@@ -72,7 +72,7 @@ export default function RecipeDetails() {
     setTranslatedText("");
 
     try {
-      const resp = await fetch(`${BASE_URL}/api/chatbot/translate`, {
+      const resp = await fetch(`${process.env.VITE_API_URL}/api/chatbot/translate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

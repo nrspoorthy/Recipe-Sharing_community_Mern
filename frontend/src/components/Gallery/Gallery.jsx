@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Gallery.css";
 import Navbar from "../Home/Navbar/Navbar";
 import Footer from "../Footer/Footer";
-import { BASE_URL } from "../../config";
+// import { BASE_URL } from "../../config";
 
 
 
@@ -50,7 +50,7 @@ export default function Gallery() {
 
   // 🔹 FETCH BACKEND RECIPES & MERGE
   useEffect(() => {
-    fetch(`${BASE_URL}/api/recipes`)
+    fetch(`${process.env.VITE_API_URL}/api/recipes`)
       .then((res) => res.json())
       .then((data) => setRecipes([...data, ...staticRecipes]))
       .catch((err) => console.error(err));
@@ -76,7 +76,7 @@ export default function Gallery() {
     formData.append("ingredients", newRecipe.ingredients);
     formData.append("image", newRecipe.image);
 
-    const res = await fetch(`${BASE_URL}/api/recipes`, {
+    const res = await fetch(`${process.env.VITE_API_URL}/api/recipes`, {
       method: "POST",
       body: formData,
     });
@@ -97,7 +97,7 @@ export default function Gallery() {
   const handleShare = (item) => {
     const link = item.image.startsWith("http")
       ? item.image
-      : `${BASE_URL}${item.image}`;
+      : `${process.env.VITE_API_URL}${item.image}`;
 
     window.open(
       `https://api.whatsapp.com/send?text=${encodeURIComponent(
@@ -133,7 +133,7 @@ export default function Gallery() {
           {recipes.map((item, index) => {
             const imgSrc = item.image.startsWith("http")
               ? item.image
-              : `${BASE_URL}${item.image}`;
+              : `${process.env.VITE_API_URL}${item.image}`;
 
             return (
               <div

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import "./Category.css";
-import { BASE_URL } from "../../../config";
+// import { BASE_URL } from "../../../config";
 
 
 function Category() {
@@ -13,7 +13,7 @@ function Category() {
   useEffect(() => {
     const fetchcategory = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/categories`);
+        const response = await fetch(`${process.env.VITE_API_URL}/api/categories`);
         const data = await response.json();
         console.log("Fetched categories:", data);
         setCategory(data.categories || []);
