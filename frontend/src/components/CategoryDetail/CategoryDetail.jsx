@@ -21,7 +21,7 @@ export default function CategoryDetail() {
   useEffect(() => {
     const fetchCategoryDetails = async () => {
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/api/categories/meals/${categoryName}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/categories/meals/${categoryName}`);
         const data = await response.json();
         setMeals(data.meals || []);
       } catch (error) {

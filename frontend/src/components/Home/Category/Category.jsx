@@ -9,11 +9,11 @@ function Category() {
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
-
+console.log(import.meta.env.VITE_API_URL);
   useEffect(() => {
     const fetchcategory = async () => {
       try {
-        const response = await fetch(`${process.env.VITE_API_URL}/api/categories`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/categories`);
         const data = await response.json();
         console.log("Fetched categories:", data);
         setCategory(data.categories || []);

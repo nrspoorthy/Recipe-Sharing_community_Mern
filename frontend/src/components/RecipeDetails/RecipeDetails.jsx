@@ -72,7 +72,7 @@ export default function RecipeDetails() {
     setTranslatedText("");
 
     try {
-      const resp = await fetch(`${process.env.VITE_API_URL}/api/chatbot/translate`, {
+      const resp = await fetch(`${import.meta.env.VITE_API_URL}/api/chatbot/translate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

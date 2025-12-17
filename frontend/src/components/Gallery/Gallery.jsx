@@ -50,7 +50,7 @@ export default function Gallery() {
 
   // 🔹 FETCH BACKEND RECIPES & MERGE
   useEffect(() => {
-    fetch(`${process.env.VITE_API_URL}/api/recipes`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/recipes`)
       .then((res) => res.json())
       .then((data) => setRecipes([...data, ...staticRecipes]))
       .catch((err) => console.error(err));
@@ -76,7 +76,7 @@ export default function Gallery() {
     formData.append("ingredients", newRecipe.ingredients);
     formData.append("image", newRecipe.image);
 
-    const res = await fetch(`${process.env.VITE_API_URL}/api/recipes`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/recipes`, {
       method: "POST",
       body: formData,
     });
@@ -97,7 +97,7 @@ export default function Gallery() {
   const handleShare = (item) => {
     const link = item.image.startsWith("http")
       ? item.image
-      : `${process.env.VITE_API_URL}${item.image}`;
+      : `${import.meta.env.VITE_API_URL}${item.image}`;
 
     window.open(
       `https://api.whatsapp.com/send?text=${encodeURIComponent(
@@ -133,7 +133,7 @@ export default function Gallery() {
           {recipes.map((item, index) => {
             const imgSrc = item.image.startsWith("http")
               ? item.image
-              : `${process.env.VITE_API_URL}${item.image}`;
+              : `${import.meta.env.VITE_API_URL}${item.image}`;
 
             return (
               <div
